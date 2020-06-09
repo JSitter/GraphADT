@@ -14,16 +14,38 @@ def read_graph_from_file(filename):
     vertices and edges
     """
 
-    # TODO: Use 'open' to open the file
+    file = open(filename, "r")
+    lines = file.readlines()
+    file.close()
 
-    # TODO: Use the first line (G or D) to determine whether graph is directed 
-    # and create a graph object
+    # Check if it is a graph or digraph
+    graph_or_digraph_str =  lines[0].strip() if len(lines) > 0 else None
+    if graph_or_digraph_str != "G" and graph_or_digraph_str != "D":
+        raise Exception("File must start with G or D.")
+    is_bidirectional = graph_or_digraph_str == "G"
 
-    # TODO: Use the second line to add the vertices to the graph
+    g = Graph()
 
-    # TODO: Use the 3rd+ line to add the edges to the graph
+    # Add all vertices
+    for vertex_key in lines[1].strip("() \n").split(","):
+        g.add_vertex(vertex_key)
 
-    pass
+    # Add all edges
+    for line in lines[2:]:
+        # Split components of edge
+        new_edge = line.strip("() \n").split(",")
+        if len(new_edge) < 2 or len(new_edge) > 3:
+            raise Exception("Lines adding edges must include 2 or 3 values")
+        
+        # Get vertices
+        vertex1, vertex2 = new_edge[:2]
+
+        # Add edge(s)
+        g.add_edge(vertex1, vertex2)
+        if is_bidirectional:
+            g.add_edge(vertex2, vertex1)
+
+    return g
 
 if __name__ == '__main__':
 

@@ -17,17 +17,17 @@ class Vertex(object):
 
     def add_neighbor(self, vertex_obj):
         """
-        Add a neighbor by storing it in the neighbors dictionary.
+        TEST: Add a neighbor by storing it in the neighbors dictionary.
 
         Parameters:
         vertex_obj (Vertex): An instance of Vertex to be stored as a neighbor.
         """
-        pass
+        self.__neighbors_dict[vertex_obj.__id] = vertex_obj
 
     def __str__(self):
         """Output the list of neighbors of this vertex."""
         neighbor_ids = list(self.__neighbors_dict.keys())
-        return f'{self.__id} adjacent to {neighbor_ids}'
+        return '{} adjacent to {}' % self.__id, neighbor_ids
 
     def __repr__(self):
         """Output the list of neighbors of this vertex."""
@@ -58,7 +58,7 @@ class Graph:
 
     def add_vertex(self, vertex_id):
         """
-        Add a new vertex object to the graph with the given key and return the vertex.
+        TEST: Add a new vertex object to the graph with the given key and return the vertex.
         
         Parameters:
         vertex_id (string): The unique identifier for the new vertex.
@@ -66,7 +66,9 @@ class Graph:
         Returns:
         Vertex: The new vertex object.
         """
-        pass
+        vertex = Vertex(vertex_id)
+        self.__vertex_dict[vertex_id] = vertex
+        return vertex
         
 
     def get_vertex(self, vertex_id):
@@ -79,13 +81,16 @@ class Graph:
 
     def add_edge(self, vertex_id1, vertex_id2):
         """
-        Add an edge from vertex with id `vertex_id1` to vertex with id `vertex_id2`.
+        TEST: Add an edge from vertex with id `vertex_id1` to vertex with id `vertex_id2`.
 
         Parameters:
         vertex_id1 (string): The unique identifier of the first vertex.
         vertex_id2 (string): The unique identifier of the second vertex.
         """
-        pass
+        v1 = self.__vertex_dict[vertex_id1]
+        v2 = self.__vertex_dict[vertex_id2]
+        v1.add_neighbor(v2)
+        v2.add_neighbor(v1)
         
     def get_vertices(self):
         """
@@ -101,7 +106,7 @@ class Graph:
 
     def __str__(self):
         """Return a string representation of the graph."""
-        return f'Graph with vertices: {self.get_vertices()}'
+        return 'Graph with vertices: {}' % self.get_vertices()
 
     def __repr__(self):
         """Return a string representation of the graph."""

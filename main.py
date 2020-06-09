@@ -31,13 +31,13 @@ if __name__ == '__main__':
 
     # Output the vertices & edges
     # Print vertices
-    print(f'The vertices are: {graph.get_vertices()} \n')
+    print('The vertices are: {} \n' % graph.get_vertices())
 
     # Print edges
     print('The edges are:')
     for vertex_obj in graph.get_vertices():
         for neighbor_obj in vertex_obj.get_neighbors():
-            print(f'({vertex_obj.get_id()} , {neighbor_obj.get_id()})')
+            print('({} , {})'.format(vertex_obj.get_id(), neighbor_obj.get_id()))
 
     # Search the graph
     print('Performing BFS traversal...')
