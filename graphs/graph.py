@@ -90,7 +90,6 @@ class Graph:
         v1 = self.__vertex_dict[vertex_id1]
         v2 = self.__vertex_dict[vertex_id2]
         v1.add_neighbor(v2)
-        v2.add_neighbor(v1)
         
     def get_vertices(self):
         """
