@@ -43,7 +43,6 @@ def read_graph_from_file(filename):
         g.add_edge(vertex1, vertex2)
         if is_bidirectional:
             g.add_edge(vertex2, vertex1)
-
     return g
 
 

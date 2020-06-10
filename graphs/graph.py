@@ -204,4 +204,23 @@ class Graph:
         Returns:
         list<string>: All vertex ids that are `target_distance` away from the start vertex
         """
-        pass
+
+        vertices = deque()
+        distances = {}
+
+        vertices.append(start_id)
+        distances[start_id] = 0
+
+        while len(vertices) > 0:
+            vertex = vertices.popleft()
+            for neighbor in self.__vertex_dict[vertex].get_neighbors():
+                if neighbor.get_id() not in distances:
+                    neighbor_distance = distances[vertex] + 1
+                    if neighbor_distance <= target_distance:
+                        vertices.append(neighbor.get_id())
+                        distances[neighbor.get_id()] = neighbor_distance
+        distance_away = []
+        for vid in distances.keys():
+            if str(distances[vid]) == str(target_distance):
+                distance_away.append(vid)
+        return distance_away
