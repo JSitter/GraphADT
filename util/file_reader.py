@@ -13,15 +13,14 @@ def read_graph_from_file(filename):
     Graph: A directed or undirected Graph object containing the specified
     vertices and edges
     """
-
     file = open(filename, "r")
     lines = file.readlines()
     file.close()
 
     # Check if it is a graph or digraph
-    graph_or_digraph_str =  lines[0].strip() if len(lines) > 0 else None
+    graph_or_digraph_str = lines[0].strip() if len(lines) > 0 else None
     if graph_or_digraph_str != "G" and graph_or_digraph_str != "D":
-        raise Exception("File must start with G or D.")
+        raise ValueError("File must start with G or D.")
     is_bidirectional = graph_or_digraph_str == "G"
 
     g = Graph()
@@ -36,7 +35,7 @@ def read_graph_from_file(filename):
         new_edge = line.strip("() \n").split(",")
         if len(new_edge) < 2 or len(new_edge) > 3:
             raise Exception("Lines adding edges must include 2 or 3 values")
-        
+
         # Get vertices
         vertex1, vertex2 = new_edge[:2]
 
@@ -46,6 +45,7 @@ def read_graph_from_file(filename):
             g.add_edge(vertex2, vertex1)
 
     return g
+
 
 if __name__ == '__main__':
 

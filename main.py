@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     # Output the vertices & edges
     # Print vertices
-    print('The vertices are: {} \n' % graph.get_vertices())
+    print('The vertices are: {} \n'.format(graph.get_vertices()))
 
     # Print edges
     print('The edges are:')

@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class Vertex(object):
     """
     Defines a single vertex and its neighbors.
@@ -8,12 +9,12 @@ class Vertex(object):
     def __init__(self, vertex_id):
         """
         Initialize a vertex and its neighbors dictionary.
-        
+
         Parameters:
         vertex_id (string): A unique identifier to identify this vertex.
         """
         self.__id = vertex_id
-        self.__neighbors_dict = {} # id -> object
+        self.__neighbors_dict = {}  # id -> object
 
     def add_neighbor(self, vertex_obj):
         """
@@ -27,7 +28,7 @@ class Vertex(object):
     def __str__(self):
         """Output the list of neighbors of this vertex."""
         neighbor_ids = list(self.__neighbors_dict.keys())
-        return '{} adjacent to {}' % self.__id, neighbor_ids
+        return '{} adjacent to {}'.format(self.__id, neighbor_ids)
 
     def __repr__(self):
         """Output the list of neighbors of this vertex."""
@@ -46,6 +47,7 @@ class Graph:
     """ Graph Class
     Represents a directed or undirected graph.
     """
+
     def __init__(self, is_directed=True):
         """
         Initialize a graph object with an empty vertex dictionary.
@@ -53,13 +55,13 @@ class Graph:
         Parameters:
         is_directed (boolean): Whether the graph is directed (edges go in only one direction).
         """
-        self.__vertex_dict = {} # id -> object
+        self.__vertex_dict = {}  # id -> object
         self.__is_directed = is_directed
 
     def add_vertex(self, vertex_id):
         """
         TEST: Add a new vertex object to the graph with the given key and return the vertex.
-        
+
         Parameters:
         vertex_id (string): The unique identifier for the new vertex.
 
@@ -68,8 +70,7 @@ class Graph:
         """
         vertex = Vertex(vertex_id)
         self.__vertex_dict[vertex_id] = vertex
-        return vertex
-        
+        return self.__vertex_dict[vertex_id]
 
     def get_vertex(self, vertex_id):
         """Return the vertex if it exists."""
@@ -89,12 +90,16 @@ class Graph:
         """
         v1 = self.__vertex_dict[vertex_id1]
         v2 = self.__vertex_dict[vertex_id2]
-        v1.add_neighbor(v2)
-        
+        if self.__is_directed:
+            v1.add_neighbor(v2)
+        else:
+            v1.add_neighbor(v2)
+            v2.add_neighbor(v1)
+
     def get_vertices(self):
         """
         Return all vertices in the graph.
-        
+
         Returns:
         List<Vertex>: The vertex objects contained in the graph.
         """
@@ -139,7 +144,7 @@ class Graph:
                     seen.add(neighbor.get_id())
                     queue.append(neighbor)
 
-        return # everything has been processed
+        return  # everything has been processed
 
     def find_shortest_path(self, start_id, target_id):
         """
@@ -157,16 +162,16 @@ class Graph:
 
         # vertex keys we've seen before and their paths from the start vertex
         vertex_id_to_path = {
-            start_id: [start_id] # only one thing in the path
+            start_id: [start_id]  # only one thing in the path
         }
 
         # queue of vertices to visit next
-        queue = deque() 
+        queue = deque()
         queue.append(self.get_vertex(start_id))
 
         # while queue is not empty
         while queue:
-            current_vertex_obj = queue.pop() # vertex obj to visit next
+            current_vertex_obj = queue.pop()  # vertex obj to visit next
             current_vertex_id = current_vertex_obj.get_id()
 
             # found target, can stop the loop early
@@ -183,7 +188,7 @@ class Graph:
                     queue.append(neighbor)
                     # print(vertex_id_to_path)
 
-        if target_id not in vertex_id_to_path: # path not found
+        if target_id not in vertex_id_to_path:  # path not found
             return None
 
         return vertex_id_to_path[target_id]
@@ -191,7 +196,7 @@ class Graph:
     def find_vertices_n_away(self, start_id, target_distance):
         """
         Find and return all vertices n distance away.
-        
+
         Arguments:
         start_id (string): The id of the start vertex.
         target_distance (integer): The distance from the start vertex we are looking for
