@@ -18,7 +18,7 @@ class Vertex(object):
 
     def add_neighbor(self, vertex_obj):
         """
-        TEST: Add a neighbor by storing it in the neighbors dictionary.
+        Add a neighbor by storing it in the neighbors dictionary.
 
         Parameters:
         vertex_obj (Vertex): An instance of Vertex to be stored as a neighbor.
@@ -60,7 +60,7 @@ class Graph:
 
     def add_vertex(self, vertex_id):
         """
-        TEST: Add a new vertex object to the graph with the given key and return the vertex.
+        Add a new vertex object to the graph with the given key and return the vertex.
 
         Parameters:
         vertex_id (string): The unique identifier for the new vertex.
@@ -82,7 +82,7 @@ class Graph:
 
     def add_edge(self, vertex_id1, vertex_id2):
         """
-        TEST: Add an edge from vertex with id `vertex_id1` to vertex with id `vertex_id2`.
+        Add an edge from vertex with id `vertex_id1` to vertex with id `vertex_id2`.
 
         Parameters:
         vertex_id1 (string): The unique identifier of the first vertex.
