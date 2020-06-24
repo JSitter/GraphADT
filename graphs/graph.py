@@ -224,3 +224,33 @@ class Graph:
             if str(distances[vid]) == str(target_distance):
                 distance_away.append(vid)
         return distance_away
+
+    def is_bipartite(self):
+        """
+        Return True if the graph is bipartite, and False otherwise.
+        """
+        colors = {}
+        color = 1
+        start = self.__vertex_dict.keys()[0]
+        seen = set()
+        seen.add(start)
+
+        queue = deque()
+        queue.append(self.get_vertex(start))
+
+        while queue:
+            current_vertex_obj = queue.pop()
+            current_vertex_id = current_vertex_obj.get_id()
+            color = color * -1
+            if current_vertex_id not in colors:
+                colors[current_vertex_id] = color
+            else:
+                if colors[current_vertex_id] == (color * -1):
+                    return False
+
+            for neighbor in current_vertex_obj.get_neighbors():
+                if neighbor.get_id() not in seen:
+                    seen.add(neighbor.get_id())
+                    queue.append(neighbor)
+
+        return  True
